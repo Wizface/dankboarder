@@ -139,7 +139,7 @@ class Wiiboard:
                         self.calibration_requested = False
                         self.on_calibrated()
             elif input_type == EXTENSION_8BYTES:
-                self.check_button(b2i(data[2:4]), self.get_mass(data[4:12]))
+                self.check_button(b2i(data[2:4]))
                 self.on_mass(self.get_mass(data[4:12]))
     def on_status(self):
         self.reporting() # Must set the reporting type after every status report
@@ -151,29 +151,8 @@ class Wiiboard:
         self.light(1)
     def on_mass(self, mass):
         logger.info("New mass data: %s", str(mass))
-
-        comx = 1.0
-        comy = 1.0
-        try:
-            total_right  = mass['top_right']   + mass['bottom_right']
-            total_left   = mass['top_left']    + mass['bottom_left']
-            comx = total_right / total_left
-            if comx > 1:
-                comx = 1 - total_right / total_left
-            else:
-                comx -= 1
-            total_bottom = mass['bottom_left'] + mass['bottom_right']
-            total_top    = mass['top_left']    + mass['top_right']
-            comy = total_bottom / total_top
-            if comy > 1:
-                comy = 1 - total_top / total_bottom
-            else:
-                comy -= 1
-        except Exception as EEFF:
-            logger.info("error occured: " + str(EEFF))
-            pass
-        print("Center of mass: %s"%str({'x': comx, 'y': comy}))
-    def on_pressed(self, mass):
+        moss = mass
+    def on_pressed(self):
         logger.info("Button pressed")
         try: 
             comx = 1.0
