@@ -43,6 +43,8 @@ logger.setLevel(logging.INFO) # or DEBUG
 
 b2i = lambda b: int(b.encode("hex"), 16)
 
+moses = {}
+
 def discover(duration=6, prefix=BLUETOOTH_NAME):
     logger.info("Scan Bluetooth devices for %i seconds...", duration)
     devices = bluetooth.discover_devices(duration=duration, lookup_names=True)
@@ -107,14 +109,15 @@ class Wiiboard:
             self.button_down = False
             self.on_released()
     def get_mass(self, data):
-        return {
+        moses = {
             'top_right':    self.calc_mass(b2i(data[0:2]), TOP_RIGHT),
             'bottom_right': self.calc_mass(b2i(data[2:4]), BOTTOM_RIGHT),
             'top_left':     self.calc_mass(b2i(data[4:6]), TOP_LEFT),
             'bottom_left':  self.calc_mass(b2i(data[6:8]), BOTTOM_LEFT),
         }
+        return moses
 
-    moses = 0
+    
     def loop(self):
         logger.debug("Starting the receive loop")
         while self.running and self.receivesocket:
@@ -153,7 +156,7 @@ class Wiiboard:
         self.light(1)
     def on_mass(self, mass):
         logger.info("New mass data: %s", str(mass))
-        moses = mass
+        
     def on_pressed(self):
         logger.info("Button pressed")
         mass = moses
