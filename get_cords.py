@@ -43,7 +43,7 @@ logger.setLevel(logging.INFO) # or DEBUG
 
 b2i = lambda b: int(b.encode("hex"), 16)
 
-solf = object
+
 dete = "o"
 moses = {}
 
