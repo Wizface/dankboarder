@@ -69,6 +69,7 @@ class Wiiboard:
         self.send(COMMAND_READ_REGISTER, b"\x04\xA4\x00\x24\x00\x18")
         self.calibration_requested = True
         logger.info("Wait for calibration")
+        logger.info("TEST APP MADE BY HELIUM LOLOLOLOL")
         logger.debug("Connect to the balance extension, to read mass data")
         self.send(COMMAND_REGISTER, b"\x04\xA4\x00\x40\x00")
         logger.debug("Request status")
@@ -150,7 +151,7 @@ class Wiiboard:
         self.light(1)
     def on_mass(self, mass):
         logger.info("New mass data: %s", str(mass))
-        
+
         comx = 1.0
         comy = 1.0
         try:
@@ -168,7 +169,8 @@ class Wiiboard:
                 comy = 1 - total_top / total_bottom
             else:
                 comy -= 1
-        except:
+        except Exception as EEFF:
+            logger.info("error occured: " + str(EEFF))
             pass
         print("Center of mass: %s"%str({'x': comx, 'y': comy}))
     def on_pressed(self):
