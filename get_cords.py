@@ -113,6 +113,8 @@ class Wiiboard:
             'top_left':     self.calc_mass(b2i(data[4:6]), TOP_LEFT),
             'bottom_left':  self.calc_mass(b2i(data[6:8]), BOTTOM_LEFT),
         }
+
+    moses = 0
     def loop(self):
         logger.debug("Starting the receive loop")
         while self.running and self.receivesocket:
@@ -151,9 +153,10 @@ class Wiiboard:
         self.light(1)
     def on_mass(self, mass):
         logger.info("New mass data: %s", str(mass))
-        moss = mass
+        moses = mass
     def on_pressed(self):
         logger.info("Button pressed")
+        mass = moses
         try: 
             comx = 1.0
             comy = 1.0
