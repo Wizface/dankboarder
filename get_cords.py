@@ -71,7 +71,7 @@ class Wiiboard:
         self.send(COMMAND_READ_REGISTER, b"\x04\xA4\x00\x24\x00\x18")
         self.calibration_requested = True
         logger.info("Wait for calibration")
-        logger.info("TEST APP MADE BY HELIUM LOLOLOLOL")
+        logger.info("\nTEST APP MADE BY HELIUM LOLOLOLOL\n")
         logger.debug("Connect to the balance extension, to read mass data")
         self.send(COMMAND_REGISTER, b"\x04\xA4\x00\x40\x00")
         logger.debug("Request status")
@@ -122,6 +122,8 @@ class Wiiboard:
         logger.debug("Starting the receive loop")
         while self.running and self.receivesocket:
             data = self.receivesocket.recv(25)
+            print("data is type:")
+            print(type(data))
             logger.debug("socket.recv(25): %r", data)
             if len(data) < 2:
                 continue
@@ -160,6 +162,7 @@ class Wiiboard:
     def on_pressed(self):
         logger.info("Button pressed")
         mass = moses
+        
         try: 
             comx = 1.0
             comy = 1.0
