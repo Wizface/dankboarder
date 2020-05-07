@@ -43,6 +43,8 @@ logger.setLevel(logging.INFO) # or DEBUG
 
 b2i = lambda b: int(b.encode("hex"), 16)
 
+
+dete = "o"
 moses = {}
 
 def discover(duration=6, prefix=BLUETOOTH_NAME):
@@ -122,8 +124,7 @@ class Wiiboard:
         logger.debug("Starting the receive loop")
         while self.running and self.receivesocket:
             data = self.receivesocket.recv(25)
-            print("data is type:")
-            print(type(data))
+            dete = data
             logger.debug("socket.recv(25): %r", data)
             if len(data) < 2:
                 continue
@@ -161,7 +162,7 @@ class Wiiboard:
         
     def on_pressed(self):
         logger.info("Button pressed")
-        mass = moses
+        mass = get_mass(dete[4:12])
         
         try: 
             comx = 1.0
