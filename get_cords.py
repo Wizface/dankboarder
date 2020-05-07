@@ -152,6 +152,7 @@ class Wiiboard:
                         self.on_calibrated()
             elif input_type == EXTENSION_8BYTES:
                 self.on_mass(self.get_mass(data[4:12]))
+                print(type(self))
                 self.check_button(b2i(data[2:4]))
     def on_status(self):
         self.reporting() # Must set the reporting type after every status report
@@ -168,7 +169,7 @@ class Wiiboard:
         logger.info("Button pressed")
         mass = moses
 
-        mass = solf.get_mass(dete[4:12])
+        #mass = solf.get_mass(dete[4:12])
         
         try: 
             comx = 1.0
