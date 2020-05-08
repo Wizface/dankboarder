@@ -239,6 +239,8 @@ class WiiboardSampling(Wiiboard):
         print("check if connect")
         ####################################
         ####################################
+        sock.setblocking(0)
+
         try:
             if(sock.recvfrom(4096)):
                 print("yes")
@@ -251,8 +253,9 @@ class WiiboardSampling(Wiiboard):
 
             if data == "killer_ben":
                 print("kill command received")
-                donk = freeddd
                 exit()
+                donk = freeddd
+                
             
             print("connected")
             paylod = str({'right': comx, 'forward': comy})
