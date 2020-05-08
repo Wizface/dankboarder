@@ -11,9 +11,10 @@ sock.bind(server_address)
 
 
 
-host_name = socket.gethostname() 
-host_ip = socket.gethostbyname(host_name) 
-print("Hostname :  ",host_name) 
+dank = socket.getfqdn()
+host_ip = socket.gethostbyname(dank) 
+
+print("Hostname :  ",dank) 
 print("IP : ",host_ip) 
 
 
