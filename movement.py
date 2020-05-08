@@ -36,7 +36,7 @@ BOTTOM_LEFT             = 3
 BLUETOOTH_NAME          = "Nintendo RVL-WBC-01"
 # WiiboardSampling Parameters
 N_SAMPLES               = 200
-N_LOOP                  = 10
+N_LOOP                  = 2 ##was 10
 T_SLEEP                 = 2
 
 # initialize the logger
@@ -51,6 +51,7 @@ b2i = lambda b: int(b.encode("hex"), 16)
 
 dete = "o"
 moses = {}
+
 
 ###########################################
 ###########################################
@@ -160,12 +161,6 @@ class Wiiboard:
         logger.debug("Starting the receive loop")
         while self.running and self.receivesocket:
             data = self.receivesocket.recv(25)
-
-            
-
-
-
-
             logger.debug("socket.recv(25): %r", data)
             if len(data) < 2:
                 continue
@@ -295,7 +290,7 @@ class WiiboardPrint(WiiboardSampling):
                 return self.close()
             self.light(0)
             #time.sleep(T_SLEEP)
-            time.sleep(1)
+            time.sleep(.0001)
 
 if __name__ == '__main__':
     import sys
