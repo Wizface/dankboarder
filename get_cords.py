@@ -138,6 +138,7 @@ class Wiiboard:
                 # 0x12: on, 0x02: off/blink
                 self.light_state = b2i(data[4]) & LED1_MASK == LED1_MASK
                 self.on_status()
+                self.on_mass(self.get_mass(data[4:12]))
             elif input_type == INPUT_READ_DATA:
                 logger.debug("Got calibration data")
                 if self.calibration_requested:
@@ -151,7 +152,7 @@ class Wiiboard:
                         self.calibration_requested = False
                         self.on_calibrated()
             elif input_type == EXTENSION_8BYTES:
-                self.on_mass(self.get_mass(data[4:12]))
+                #self.on_mass(self.get_mass(data[4:12]))
                 self.check_button(b2i(data[2:4]))
 
     def on_status(self):
