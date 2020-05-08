@@ -240,17 +240,18 @@ class WiiboardSampling(Wiiboard):
         try:
             data, address = sock.recvfrom(4096)
 
+            paylod = str({'right': comx, 'forward': comy})
             #print >>sys.stderr, 'received %s bytes from %s' % (len(data), address)
             #print >>sys.stderr, data
-
+            paylod = str.encode(paylod)
             #if data:
             #    sent = sock.sendto(data, address)
             #    print >>sys.stderr, 'sent %s bytes back to %s' % (sent, address)
             
-            sent = sock.sendto(data, address)
+            sent = sock.sendto(paylod, address)
             print >>sys.stderr, 'sent %s bytes back to %s' % (sent, address)
-        except Exception as OOF:
-            print(OOF)
+        except:
+            pass
         ####################################
         ####################################
         
