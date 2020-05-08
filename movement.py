@@ -36,7 +36,7 @@ BOTTOM_LEFT             = 3
 BLUETOOTH_NAME          = "Nintendo RVL-WBC-01"
 # WiiboardSampling Parameters
 N_SAMPLES               = 200
-N_LOOP                  = 2 ##was 10
+N_LOOP                  = 20 ##was 10
 T_SLEEP                 = 2
 
 # initialize the logger
@@ -287,6 +287,7 @@ class WiiboardPrint(WiiboardSampling):
             self.status() # Stop the board from publishing mass data
             self.nloop += 1
             if self.nloop > N_LOOP:
+                print("TIMES UP BUDDY XD line 290")
                 return self.close()
             self.light(0)
             #time.sleep(T_SLEEP)
