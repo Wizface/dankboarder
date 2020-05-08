@@ -152,8 +152,8 @@ class Wiiboard:
                         self.on_calibrated()
             elif input_type == EXTENSION_8BYTES:
                 self.on_mass(self.get_mass(data[4:12]))
-                
                 self.check_button(b2i(data[2:4]))
+
     def on_status(self):
         self.reporting() # Must set the reporting type after every status report
         logger.info("Status: battery: %.2f%% light: %s", self.battery*100.0,
@@ -163,6 +163,7 @@ class Wiiboard:
         logger.info("Board calibrated: %s", str(self.calibration))
         self.light(1)
     def on_mass(self, mass):
+        print("tester?")
         logger.info("New mass data: %s", str(mass))
         
     def on_pressed(self):
