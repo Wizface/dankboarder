@@ -1,7 +1,7 @@
 import socket
 import sys
 
-server_address = ('192.168.56.1', 27015)
+server_address = ('http://dankboarder.ddns.net', 27015)
 
 def main():
     while True:
