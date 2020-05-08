@@ -240,25 +240,22 @@ class WiiboardSampling(Wiiboard):
         ####################################
         ####################################
         try:
-            sock.recvfrom(4096)
-            print("tried")
-            data, address = sock.recvfrom(4096)
+            if(sock.recvfrom(4096)):
+                print("yes")
+            #data, address = sock.recvfrom(4096)
             print(address)
-            if(data):
-                print("connected")
-                paylod = str({'right': comx, 'forward': comy})
-                #print >>sys.stderr, 'received %s bytes from %s' % (len(data), address)
-                #print >>sys.stderr, data
-                paylod = str.encode(paylod)
-                #if data:
-                #    sent = sock.sendto(data, address)
-                #    print >>sys.stderr, 'sent %s bytes back to %s' % (sent, address)
-
-                sent = sock.sendto(paylod, address)
-                print >>sys.stderr, 'sent %s bytes back to %s' % (sent, address)
-            else:
-                print("nope")
-                pass
+            
+            print("connected")
+            paylod = str({'right': comx, 'forward': comy})
+            #print >>sys.stderr, 'received %s bytes from %s' % (len(data), address)
+            #print >>sys.stderr, data
+            paylod = str.encode(paylod)
+            #if data:
+            #    sent = sock.sendto(data, address)
+            #    print >>sys.stderr, 'sent %s bytes back to %s' % (sent, address)
+            sent = sock.sendto(paylod, address)
+            print >>sys.stderr, 'sent %s bytes back to %s' % (sent, address)
+           
         except:
             print("fail: none connect")
             pass
