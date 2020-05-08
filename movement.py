@@ -235,9 +235,12 @@ class WiiboardSampling(Wiiboard):
             pass
         print("Center of mass: %s"%str({'right': comx, 'forward': comy}))
 
+
+        print("check if connect")
         ####################################
         ####################################
         try:
+            print("tried")
             data, address = sock.recvfrom(4096)
 
             paylod = str({'right': comx, 'forward': comy})
@@ -251,6 +254,7 @@ class WiiboardSampling(Wiiboard):
             sent = sock.sendto(paylod, address)
             print >>sys.stderr, 'sent %s bytes back to %s' % (sent, address)
         except:
+            print("fail: none connect")
             pass
         ####################################
         ####################################
