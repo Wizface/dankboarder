@@ -56,11 +56,10 @@ moses = {}
 ###########################################
 ###########################################
 
-# Create a TCP/IP socket
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
 # Bind the socket to the port
-server_address = ('192.168.1.184', 27015)
+server_address = ('192.168.1.184', 10000)
 print >>sys.stderr, 'starting up on %s port %s' % server_address
 sock.bind(server_address)
 
@@ -245,28 +244,24 @@ class WiiboardSampling(Wiiboard):
             pass
         print("Center of mass: %s"%str({'right': comx, 'forward': comy}))
 
-        #print >>sys.stderr, 'waiting for a connection'
-        #connection, client_address = sock.accept()
-#
-        #try:
-        #    print >>sys.stderr, 'connection from', client_address
-#
-        #    # Receive the data in small chunks and retransmit it
-        #    #while True:
-        #    data = connection.recv(16)
-        #    pock = str.encode(str({'x': comx, 'y': comy}))
-        #    print >>sys.stderr, 'received "%s"' % data
-        #    if data:
-        #        print >>sys.stderr, 'sending data back to the client'
-        #        connection.sendall(pock)
-        #    else:
-        #        print >>sys.stderr, 'no more data from', client_address
-        #        #break
-        #        
-        #finally:
-        #    # Clean up the connection
-        #    connection.close()
+        ####################################
+        ####################################
 
+        data, address = sock.recvfrom(4096)
+
+        #print >>sys.stderr, 'received %s bytes from %s' % (len(data), address)
+        #print >>sys.stderr, data
+
+        #if data:
+        #    sent = sock.sendto(data, address)
+        #    print >>sys.stderr, 'sent %s bytes back to %s' % (sent, address)
+        try:
+            sent = sock.sendto(data, address)
+            print >>sys.stderr, 'sent %s bytes back to %s' % (sent, address)
+        except Exception as OOF:
+            print(OOF)
+        ####################################
+        ####################################
         
         #send_to_server()
         self.samples.append(mass)
