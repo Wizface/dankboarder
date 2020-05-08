@@ -237,16 +237,16 @@ class WiiboardSampling(Wiiboard):
 
         ####################################
         ####################################
-
-        data, address = sock.recvfrom(4096)
-
-        #print >>sys.stderr, 'received %s bytes from %s' % (len(data), address)
-        #print >>sys.stderr, data
-
-        #if data:
-        #    sent = sock.sendto(data, address)
-        #    print >>sys.stderr, 'sent %s bytes back to %s' % (sent, address)
         try:
+            data, address = sock.recvfrom(4096)
+
+            #print >>sys.stderr, 'received %s bytes from %s' % (len(data), address)
+            #print >>sys.stderr, data
+
+            #if data:
+            #    sent = sock.sendto(data, address)
+            #    print >>sys.stderr, 'sent %s bytes back to %s' % (sent, address)
+            
             sent = sock.sendto(data, address)
             print >>sys.stderr, 'sent %s bytes back to %s' % (sent, address)
         except Exception as OOF:
