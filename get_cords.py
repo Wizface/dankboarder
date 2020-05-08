@@ -47,6 +47,10 @@ b2i = lambda b: int(b.encode("hex"), 16)
 dete = "o"
 moses = {}
 
+
+def send_to_server():
+    print("content uwu")
+
 def discover(duration=6, prefix=BLUETOOTH_NAME):
     logger.info("Scan Bluetooth devices for %i seconds...", duration)
     devices = bluetooth.discover_devices(duration=duration, lookup_names=True)
@@ -205,6 +209,7 @@ class WiiboardSampling(Wiiboard):
         except:
             pass
         print("Center of mass: %s"%str({'x': comx, 'y': comy}))
+        send_to_server()
         self.samples.append(mass)
         self.on_sample()
     def on_sample(self):
@@ -225,7 +230,8 @@ class WiiboardPrint(WiiboardSampling):
             if self.nloop > N_LOOP:
                 return self.close()
             self.light(0)
-            time.sleep(T_SLEEP)
+            #time.sleep(T_SLEEP)
+            time.sleep(.5)
 
 if __name__ == '__main__':
     import sys
