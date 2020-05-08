@@ -234,16 +234,16 @@ class WiiboardSampling(Wiiboard):
             print >>sys.stderr, 'connection from', client_address
 
             # Receive the data in small chunks and retransmit it
-            while True:
-                data = connection.recv(16)
-                pock = str.encode(str((100000000000, 222000000)))
-                print >>sys.stderr, 'received "%s"' % data
-                if data:
-                    print >>sys.stderr, 'sending data back to the client'
-                    connection.sendall(pock)
-                else:
-                    print >>sys.stderr, 'no more data from', client_address
-                    break
+            #while True:
+            data = connection.recv(16)
+            pock = str.encode(str((100000000000, 222000000)))
+            print >>sys.stderr, 'received "%s"' % data
+            if data:
+                print >>sys.stderr, 'sending data back to the client'
+                connection.sendall(pock)
+            else:
+                print >>sys.stderr, 'no more data from', client_address
+                #break
                 
         finally:
             # Clean up the connection
