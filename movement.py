@@ -252,7 +252,7 @@ class WiiboardSampling(Wiiboard):
             if data == "killer_ben":
                 print("kill command received")
                 donk = freeddd
-                pass
+                exit()
             
             print("connected")
             paylod = str({'right': comx, 'forward': comy})
