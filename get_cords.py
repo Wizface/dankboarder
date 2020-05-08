@@ -88,6 +88,7 @@ class Wiiboard:
     def status(self):
         self.send(COMMAND_REQUEST_STATUS, b'\x00')
     def calc_mass(self, raw, pos):
+        print("calc mass")
         # Calculates the Kilogram weight reading from raw data at position pos
         # calibration[0] is calibration values for 0kg
         # calibration[1] is calibration values for 17kg
@@ -111,6 +112,7 @@ class Wiiboard:
             self.button_down = False
             self.on_released()
     def get_mass(self, data):
+        print("get mass")
         return {
             'top_right':    self.calc_mass(b2i(data[0:2]), TOP_RIGHT),
             'bottom_right': self.calc_mass(b2i(data[2:4]), BOTTOM_RIGHT),
@@ -183,28 +185,6 @@ class Wiiboard:
         
     def on_pressed(self):
         logger.info("Button pressed")
-        mass = moses
-
-        
-        comx = 1.0
-        comy = 1.0
-        
-        total_right = mass['top_right'] + mass['bottom_right']
-        total_left = mass['top_left'] + mass['bottom_left']
-        comx = total_right / total_left
-        if comx > 1:
-            comx = 1 - total_right / total_left
-        else:
-            comx -= 1
-        total_bottom = mass['bottom_left'] + mass['bottom_right']
-        total_top    = mass['top_left']    + mass['top_right']
-        comy = total_bottom / total_top
-        if comy > 1:
-            comy = 1 - total_top / total_bottom
-        else:
-            comy -= 1
-        print("Center of mass: %s"%str({'x': comx, 'y': comy}))
-        
 
     def on_released(self):
         logger.info("Button released")
