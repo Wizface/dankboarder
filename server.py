@@ -5,9 +5,17 @@ import sys
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 # Bind the socket to the port
-server_address = ('localhost', 27015)
+server_address = ('127.0.0.1', 27015)
 print >>sys.stderr, 'starting up on %s port %s' % server_address
 sock.bind(server_address)
+
+
+
+host_name = socket.gethostname() 
+host_ip = socket.gethostbyname(host_name) 
+print("Hostname :  ",host_name) 
+print("IP : ",host_ip) 
+
 
 # Listen for incoming connections
 sock.listen(1)
