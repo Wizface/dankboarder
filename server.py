@@ -1,45 +1,37 @@
-
 import socket
-import time
-HOST = '127.0.0.1'  # Standard loopback interface address (localhost)
-PORT = 27015  # Port to listen on (non-privileged ports are > 1023)
+import sys
 
+# Create a TCP/IP socket
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-def main():
+# Bind the socket to the port
+server_address = ('localhost', 27015)
+print >>sys.stderr, 'starting up on %s port %s' % server_address
+sock.bind(server_address)
 
-    def get_Host_name_IP(): 
-        try: 
-            host_name = socket.gethostname() 
-            host_ip = socket.gethostbyname(host_name) 
-            print("Hostname :  ",host_name) 
-            print("IP : ",host_ip) 
-        except: 
-            print("Unable to get Hostname and IP") 
-  
-    # Driver code 
-    get_Host_name_IP() #Function call 
+# Listen for incoming connections
+sock.listen(1)
 
-    while True:
-        #open a file and load the message. then send message on loop
-        
-        
-        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-            s.bind((HOST, PORT))
-            s.listen()
-            (conn, addr) = s.accept()
-            with conn:
-                print('User Connected by', addr)
-                poss = 90000
-                package = str.encode(str(poss))
-                #while True:
-                data = conn.recv(1024)
-                conn.sendall(package)
-        #print('-> Username is:', repr(data))
-        
-        time.sleep(.1)
+while True:
+    # Wait for a connection
+    print >>sys.stderr, 'waiting for a connection'
+    connection, client_address = sock.accept()
 
+    try:
+        print >>sys.stderr, 'connection from', client_address
 
-if __name__ == '__main__':
-    main()
-
-			
+        # Receive the data in small chunks and retransmit it
+        while True:
+            data = connection.recv(16)
+            pock = str.encode(str((9, 10)))
+            print >>sys.stderr, 'received "%s"' % data
+            if data:
+                print >>sys.stderr, 'sending data back to the client'
+                connection.sendall(pock)
+            else:
+                print >>sys.stderr, 'no more data from', client_address
+                break
+            
+    finally:
+        # Clean up the connection
+        connection.close()
