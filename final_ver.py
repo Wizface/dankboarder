@@ -230,25 +230,6 @@ class WiiboardSampling(Wiiboard):
         print >>sys.stderr, 'waiting for a connection'
         connection, client_address = sock.accept()
 
-        try:
-            print >>sys.stderr, 'connection from', client_address
-
-            # Receive the data in small chunks and retransmit it
-            #while True:
-            data = connection.recv(16)
-            pock = str.encode(str((100000000000, 222000000)))
-            print >>sys.stderr, 'received "%s"' % data
-            if data:
-                print >>sys.stderr, 'sending data back to the client'
-                connection.sendall(pock)
-            else:
-                print >>sys.stderr, 'no more data from', client_address
-                #break
-                
-        finally:
-            # Clean up the connection
-            connection.close()
-
         comx = 1.0
         comy = 1.0
         try:
@@ -269,7 +250,28 @@ class WiiboardSampling(Wiiboard):
         except:
             pass
         print("Center of mass: %s"%str({'x': comx, 'y': comy}))
-        send_to_server()
+
+        try:
+            print >>sys.stderr, 'connection from', client_address
+
+            # Receive the data in small chunks and retransmit it
+            #while True:
+            data = connection.recv(16)
+            pock = str.encode(str({'x': comx, 'y': comy}))
+            print >>sys.stderr, 'received "%s"' % data
+            if data:
+                print >>sys.stderr, 'sending data back to the client'
+                connection.sendall(pock)
+            else:
+                print >>sys.stderr, 'no more data from', client_address
+                #break
+                
+        finally:
+            # Clean up the connection
+            connection.close()
+
+        
+        #send_to_server()
         self.samples.append(mass)
         self.on_sample()
     def on_sample(self):
