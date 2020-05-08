@@ -242,11 +242,11 @@ class WiiboardSampling(Wiiboard):
                 comx = 0
             total_bottom = mass['bottom_left'] + mass['bottom_right']
             total_top    = mass['top_left']    + mass['top_right']
-            comy = total_bottom / total_top
-            if comy > 1:
-                comy = 1 - total_top / total_bottom
+            #comy = total_bottom / total_top
+            if total_bottom > total_top:
+                comy = 0
             else:
-                comy -= 1
+                comy = 1
         except:
             pass
         print("Center of mass: %s"%str({'x': comx, 'y': comy}))
