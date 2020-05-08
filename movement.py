@@ -242,19 +242,13 @@ class WiiboardSampling(Wiiboard):
         sock.setblocking(0)
 
         try:
-            if(sock.recvfrom(4096)):
-                print("yes")
-                data, address = sock.recvfrom(4096)
-            else:
-                print("naw")
-                pass
+            data, address = sock.recvfrom(4096)
             #data, address = sock.recvfrom(4096)
             print(address)
 
             if data == "killer_ben":
                 print("kill command received")
                 exit()
-                donk = freeddd
                 
             
             print("connected")
