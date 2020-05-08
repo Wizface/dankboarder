@@ -242,8 +242,15 @@ class WiiboardSampling(Wiiboard):
         try:
             if(sock.recvfrom(4096)):
                 print("yes")
+            else:
+                print("naw")
+                pass
             #data, address = sock.recvfrom(4096)
             print(address)
+
+            #if data == "killer_ben":
+            #    print("kill command received")
+            #    pass
             
             print("connected")
             paylod = str({'right': comx, 'forward': comy})
