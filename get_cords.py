@@ -124,10 +124,6 @@ class Wiiboard:
         logger.debug("Starting the receive loop")
         while self.running and self.receivesocket:
             data = self.receivesocket.recv(25)
-
-            # try to make some global variables
-            dete = data
-            solf = self
             
             logger.debug("socket.recv(25): %r", data)
             if len(data) < 2:
@@ -151,9 +147,8 @@ class Wiiboard:
                         self.calibration[2] = cal(data[0:8])
                         self.calibration_requested = False
                         self.on_calibrated()
-                        self.on_mass(self.get_mass(data[4:12]))
             elif input_type == EXTENSION_8BYTES:
-                #self.on_mass(self.get_mass(data[4:12]))
+                self.on_mass(self.get_mass(data[4:12]))
                 self.check_button(b2i(data[2:4]))
 
     def on_status(self):
