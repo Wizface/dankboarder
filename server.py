@@ -1,6 +1,5 @@
 
 import socket
-import random
 import time
 HOST = '127.0.0.1'  # Standard loopback interface address (localhost)
 PORT = 27015  # Port to listen on (non-privileged ports are > 1023)
@@ -30,7 +29,7 @@ def main():
             (conn, addr) = s.accept()
             with conn:
                 print('User Connected by', addr)
-                poss = random.randint(3, 9)
+                poss = 90000
                 package = str.encode(str(poss))
                 #while True:
                 data = conn.recv(1024)
