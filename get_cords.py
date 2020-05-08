@@ -111,13 +111,12 @@ class Wiiboard:
             self.button_down = False
             self.on_released()
     def get_mass(self, data):
-        moses = {
+        return {
             'top_right':    self.calc_mass(b2i(data[0:2]), TOP_RIGHT),
             'bottom_right': self.calc_mass(b2i(data[2:4]), BOTTOM_RIGHT),
             'top_left':     self.calc_mass(b2i(data[4:6]), TOP_LEFT),
             'bottom_left':  self.calc_mass(b2i(data[6:8]), BOTTOM_LEFT),
         }
-        return moses
 
     
     def loop(self):
@@ -160,8 +159,27 @@ class Wiiboard:
         logger.info("Board calibrated: %s", str(self.calibration))
         self.light(1)
     def on_mass(self, mass):
-        print("tester?")
-        logger.info("New mass data: %s", str(mass))
+        comx = 1.0
+        comy = 1.0
+        try:
+            total_right  = mass['top_right']   + mass['bottom_right']
+            total_left   = mass['top_left']    + mass['bottom_left']
+            comx = total_right / total_left
+            if comx > 1:
+                comx = 1 - total_right / total_left
+            else:
+                comx -= 1
+            total_bottom = mass['bottom_left'] + mass['bottom_right']
+            total_top    = mass['top_left']    + mass['top_right']
+            comy = total_bottom / total_top
+            if comy > 1:
+                comy = 1 - total_top / total_bottom
+            else:
+                comy -= 1
+        except:
+            pass
+        print("Center of mass: %s"%str({'x': comx, 'y': comy}))
+        # plot(x,y) using pygame or any other GUI
         
     def on_pressed(self):
         logger.info("Button pressed")
@@ -187,31 +205,6 @@ class Wiiboard:
             comy -= 1
         print("Center of mass: %s"%str({'x': comx, 'y': comy}))
         
-
-        #try: 
-        #    comx = 1.0
-        #    comy = 1.0
-        #    try:
-        #        total_right = mass['top_right'] + mass['bottom_right']
-        #        total_left = mass['top_left'] + mass['bottom_left']
-        #        comx = total_right / total_left
-        #        if comx > 1:
-        #            comx = 1 - total_right / total_left
-        #        else:
-        #            comx -= 1
-        #        total_bottom = mass['bottom_left'] + mass['bottom_right']
-        #        total_top    = mass['top_left']    + mass['top_right']
-        #        comy = total_bottom / total_top
-        #        if comy > 1:
-        #            comy = 1 - total_top / total_bottom
-        #        else:
-        #            comy -= 1
-        #    except Exception as EEFF:
-        #        logger.info("error occured: " + str(EEFF))
-        #        pass
-        #    print("Center of mass: %s"%str({'x': comx, 'y': comy}))
-        #except Exception as oof:
-        #    print("nope " + str(oof))
 
     def on_released(self):
         logger.info("Button released")
