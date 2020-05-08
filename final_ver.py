@@ -293,7 +293,7 @@ class WiiboardPrint(WiiboardSampling):
                 return self.close()
             self.light(0)
             #time.sleep(T_SLEEP)
-            time.sleep(.5)
+            #time.sleep(.5)
 
 if __name__ == '__main__':
     import sys
