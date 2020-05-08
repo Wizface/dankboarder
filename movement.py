@@ -65,16 +65,7 @@ sock.bind(server_address)
 
 
 
-dank = socket.getfqdn()
-host_ip = socket.gethostbyname(dank) 
 
-print([ip for ip in socket.gethostbyname_ex(socket.gethostname())[2] if not ip.startswith("127.")][:1])
-
-print("Hostname :  ",dank) 
-print("IP : ",host_ip) 
-
-# Listen for incoming connections
-sock.listen(1)
 
 ###########################################
 ###########################################
