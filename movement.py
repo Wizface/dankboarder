@@ -235,11 +235,11 @@ class WiiboardSampling(Wiiboard):
         try:
             total_right  = mass['top_right']   + mass['bottom_right']
             total_left   = mass['top_left']    + mass['bottom_left']
-            comx = total_right / total_left
-            if comx > 1:
-                comx = 1 - total_right / total_left
+            #comx = total_right / total_left
+            if total_right > total_left:
+                comx = 1
             else:
-                comx -= 1
+                comx = 0
             total_bottom = mass['bottom_left'] + mass['bottom_right']
             total_top    = mass['top_left']    + mass['top_right']
             comy = total_bottom / total_top
