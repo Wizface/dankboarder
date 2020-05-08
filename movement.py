@@ -240,8 +240,10 @@ class WiiboardSampling(Wiiboard):
         ####################################
         ####################################
         try:
+            sock.recvfrom(4096)
             print("tried")
             data, address = sock.recvfrom(4096)
+            print(address)
             if(data):
                 print("connected")
                 paylod = str({'right': comx, 'forward': comy})
