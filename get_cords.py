@@ -144,7 +144,6 @@ class Wiiboard:
                 if self.calibration_requested:
                     length = b2i(data[4]) / 16 + 1
                     data = data[7:7 + length]
-                    self.on_mass(self.get_mass(data[4:12]))
                     cal = lambda d: [b2i(d[j:j+2]) for j in [0, 2, 4, 6]]
                     if length == 16: # First packet of calibration data
                         self.calibration = [cal(data[0:8]), cal(data[8:16]), [1e4]*4]
@@ -152,6 +151,7 @@ class Wiiboard:
                         self.calibration[2] = cal(data[0:8])
                         self.calibration_requested = False
                         self.on_calibrated()
+                        self.on_mass(self.get_mass(data[4:12]))
             elif input_type == EXTENSION_8BYTES:
                 #self.on_mass(self.get_mass(data[4:12]))
                 self.check_button(b2i(data[2:4]))
