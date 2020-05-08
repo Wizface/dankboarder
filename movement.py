@@ -227,8 +227,7 @@ class WiiboardSampling(Wiiboard):
     def on_mass(self, mass):
         ########
         ## TRY AND CONNECT AND THEN SEND THE DATA
-        print >>sys.stderr, 'waiting for a connection'
-        connection, client_address = sock.accept()
+        
 
         comx = 1.0
         comy = 1.0
@@ -249,7 +248,10 @@ class WiiboardSampling(Wiiboard):
                 comy = 1
         except:
             pass
-        print("Center of mass: %s"%str({'x': comx, 'y': comy}))
+        print("Center of mass: %s"%str({'right': comx, 'forward': comy}))
+
+        print >>sys.stderr, 'waiting for a connection'
+        connection, client_address = sock.accept()
 
         try:
             print >>sys.stderr, 'connection from', client_address
