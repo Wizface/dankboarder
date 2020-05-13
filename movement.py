@@ -314,6 +314,19 @@ class WiiboardSampling(Wiiboard):
         ###############################################
         ###############################################
         ###############################################
+
+        # Power management registers
+        power_mgmt_1 = 0x6b
+        power_mgmt_2 = 0x6c
+
+        
+        bus = smbus.SMBus(0) # or bus = smbus.SMBus(1) for Revision 2 boards
+        address = 0x68       # This is the address value read via the i2cdetect command
+        
+        # Now wake the 6050 up as it starts in sleep mode
+        bus.write_byte_data(address, power_mgmt_1, 0)
+
+
         gyro_xout = read_word_2c(0x43)
         gyro_yout = read_word_2c(0x45)
         gyro_zout = read_word_2c(0x47)
