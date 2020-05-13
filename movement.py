@@ -15,6 +15,8 @@ import bluetooth
 import smbus
 import math
 
+start = time.time()
+end = time.time()
 
 import socket
 import sys
@@ -26,6 +28,8 @@ import sys
 ###########################################################
 
 def get_da_daet():
+
+    start = time.time()
     print("content uwu")
 
     # Power management registers
@@ -94,6 +98,7 @@ def get_da_daet():
 
     print "x rotation: " , get_x_rotation(accel_xout_scaled, accel_yout_scaled, accel_zout_scaled)
     print "y rotation: " , get_y_rotation(accel_xout_scaled, accel_yout_scaled, accel_zout_scaled)
+    end = time.time()
     return get_x_rotation(accel_xout_scaled, accel_yout_scaled, accel_zout_scaled), get_y_rotation(accel_xout_scaled, accel_yout_scaled, accel_zout_scaled)
 
 #######################
@@ -390,6 +395,7 @@ class WiiboardPrint(WiiboardSampling):
             self.nloop += 1
             if self.nloop > N_LOOP:
                 print("TIMES UP BUDDY XD line 290")
+                print(end - start)
                 return self.close()
             self.light(0)
             #time.sleep(T_SLEEP)
