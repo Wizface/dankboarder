@@ -314,6 +314,9 @@ class WiiboardSampling(Wiiboard):
         print "x rotation: " , get_x_rotation(accel_xout_scaled, accel_yout_scaled, accel_zout_scaled)
         print "y rotation: " , get_y_rotation(accel_xout_scaled, accel_yout_scaled, accel_zout_scaled)
 
+        rotx = get_x_rotation(accel_xout_scaled, accel_yout_scaled, accel_zout_scaled)
+        roty = get_y_rotation(accel_xout_scaled, accel_yout_scaled, accel_zout_scaled)
+
 
         print("check if connect")
         ####################################
@@ -331,7 +334,7 @@ class WiiboardSampling(Wiiboard):
                 
             
             #print("connected")
-            paylod = str({'right': comx, 'forward': comy})
+            paylod = str({'right': comx, 'forward': comy, 'xrotation': rotx, 'yrotation': roty})
             #print >>sys.stderr, 'received %s bytes from %s' % (len(data), address)
             #print >>sys.stderr, data
             paylod = str.encode(paylod)
