@@ -83,7 +83,8 @@ while 1:
             print("kill command received")
             exit()
             
-        
+        comx = 1
+        comy = 1
         #print("connected")
         paylod = str({'right': comx, 'forward': comy, 'xrotation': rotx, 'yrotation': roty})
         #print >>sys.stderr, 'received %s bytes from %s' % (len(data), address)
