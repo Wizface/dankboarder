@@ -17,7 +17,11 @@ sock.bind(server_address)
 # Power management registers
 power_mgmt_1 = 0x6b
 power_mgmt_2 = 0x6c
+
+total = 1
+
 def get_da_daet():
+    t0 = time.time()
     print("content uwu")
     bus = smbus.SMBus(0) # or bus = smbus.SMBus(1) for Revision 2 boards
     address = 0x68       # This is the address value read via the i2cdetect command
@@ -67,10 +71,13 @@ def get_da_daet():
     print "x rotation: " , get_x_rotation(accel_xout_scaled, accel_yout_scaled, accel_zout_scaled)
     print "y rotation: " , get_y_rotation(accel_xout_scaled, accel_yout_scaled, accel_zout_scaled)
     #end = time.time()
+    t1 = time.time()
+    total = t1-t0
     return get_x_rotation(accel_xout_scaled, accel_yout_scaled, accel_zout_scaled), get_y_rotation(accel_xout_scaled, accel_yout_scaled, accel_zout_scaled)
 
 while 1:
     rotx, roty = get_da_daet()
+    
     print("check if connect")
     ####################################
     ####################################
@@ -95,6 +102,8 @@ while 1:
         #    print >>sys.stderr, 'sent %s bytes back to %s' % (sent, address)
         sent = sock.sendto(paylod, address)
         print >>sys.stderr, 'sent %s bytes back to %s' % (sent, address)
+        print("got data and sent in:")
+        print(total)
        
     except:
         #print("fail: none connect")
