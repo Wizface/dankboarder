@@ -18,9 +18,6 @@ sock.bind(server_address)
 power_mgmt_1 = 0x6b
 power_mgmt_2 = 0x6c
 
-total = int
-t1 = int
-t0 = int
 
 def get_da_daet():
     t0 = time.time()
@@ -75,6 +72,8 @@ def get_da_daet():
     #end = time.time()
     t1 = time.time()
     total = t1-t0
+    print("got data and sent in:")
+    print(total)
     return get_x_rotation(accel_xout_scaled, accel_yout_scaled, accel_zout_scaled), get_y_rotation(accel_xout_scaled, accel_yout_scaled, accel_zout_scaled)
 
 while 1:
@@ -104,11 +103,10 @@ while 1:
         #    print >>sys.stderr, 'sent %s bytes back to %s' % (sent, address)
         sent = sock.sendto(paylod, address)
         print >>sys.stderr, 'sent %s bytes back to %s' % (sent, address)
-        print("got data and sent in:")
-        print(total)
+        
+        
        
     except:
         #print("fail: none connect")
-        print("got data and sent in:")
-        print(total)
+        
         pass
