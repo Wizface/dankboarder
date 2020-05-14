@@ -107,4 +107,6 @@ while 1:
        
     except:
         #print("fail: none connect")
+        print("got data and sent in:")
+        print(total)
         pass
