@@ -18,7 +18,9 @@ sock.bind(server_address)
 power_mgmt_1 = 0x6b
 power_mgmt_2 = 0x6c
 
-total = 1
+total = int
+t1 = int
+t0 = int
 
 def get_da_daet():
     t0 = time.time()
